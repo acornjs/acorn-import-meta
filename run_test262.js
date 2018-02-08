@@ -4,12 +4,18 @@ const path = require("path")
 const run = require("test262-parser-runner")
 const parse = require(".").parse
 
-const unsupportedFeatures = ["object-rest", "object-spread", "regexp-named-groups",
-  "async-iteration", "BigInt", "class-fields", "class-fields-public",
-  "computed-property-names", // Only used for class fields
-  "regexp-unicode-property-escapes",
-  "regexp-lookbehind", "regexp-dotall",
-  "optional-catch-binding"]
+const unsupportedFeatures = [
+  "BigInt",
+  "class-fields",
+  "class-fields-private",
+  "class-fields-public",
+  "optional-catch-binding",
+  "regexp-lookbehind",
+  "regexp-named-groups",
+  "regexp-unicode-property-escapes"
+]
+
+// See https://github.com/tc39/test262/issues/1342
 
 run(
   (content, options) => parse(content, {sourceType: options.sourceType, ecmaVersion: 9, plugins: { importMeta: true }}),
