@@ -1,13 +1,15 @@
 "use strict"
 
 const assert = require("assert")
-const acorn = require("..")
+const acorn = require("acorn")
+const importMeta = require("..")
+const Parser = acorn.Parser.extend(importMeta)
 
 function testFail(text, expectedError, additionalOptions) {
   it(text, function () {
     let failed = false
     try {
-      acorn.parse(text, Object.assign({ ecmaVersion: 9, sourceType: "module", plugins: { importMeta: true } }, additionalOptions))
+      Parser.parse(text, Object.assign({ ecmaVersion: 9, sourceType: "module", plugins: { importMeta: true } }, additionalOptions))
     } catch (e) {
       if (expectedError) assert.equal(e.message, expectedError)
       failed = true
@@ -17,7 +19,7 @@ function testFail(text, expectedError, additionalOptions) {
 }
 function test(text, expectedResult, additionalOptions) {
   it(text, function () {
-    const result = acorn.parse(text, Object.assign({ ecmaVersion: 9, sourceType: "module", plugins: { importMeta: true } }, additionalOptions))
+    const result = Parser.parse(text, Object.assign({ ecmaVersion: 9, sourceType: "module", plugins: { importMeta: true } }, additionalOptions))
 
     assert.deepEqual(result, expectedResult)
   })

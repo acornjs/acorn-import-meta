@@ -8,24 +8,12 @@ It implements support for import.meta as defined in the [corresponding stage 3 p
 
 ## Usage
 
-You can use this module directly in order to get an Acorn instance with the plugin installed:
+This module provides a plugin that extends the Acorn `Parser` class:
 
 ```javascript
-var acorn = require('acorn-import-meta');
-```
-
-Or you can use `inject.js` for injecting the plugin into your own version of Acorn like this:
-
-```javascript
-var acorn = require('acorn-import-meta/inject')(require('./custom-acorn'));
-```
-
-Then, use the `plugins` option to enable the plugiin:
-
-```javascript
-var ast = acorn.parse(code, {
-  plugins: { importMeta: true }
-});
+var acorn = require('acorn');
+var importMeta = require('acorn-import-meta');
+acorn.Parser.extend(importMeta).parse('console.log(import.meta.url)');
 ```
 
 ## License
