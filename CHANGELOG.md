@@ -1,3 +1,8 @@
+## 0.3.0 (2018-09-14)
+
+* Update to new acorn 6 interface
+* Change license to MIT
+
 ## 0.2.1 (2018-02-13)
 
 * Relicense under Apache-2.0 and AGPL-3.0-or-later
