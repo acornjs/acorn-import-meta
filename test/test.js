@@ -9,9 +9,9 @@ function testFail(text, expectedError, additionalOptions) {
   it(text, function () {
     let failed = false
     try {
-      Parser.parse(text, Object.assign({ ecmaVersion: 9, sourceType: "module", plugins: { importMeta: true } }, additionalOptions))
+      Parser.parse(text, Object.assign({ ecmaVersion: 9, sourceType: "module" }, additionalOptions))
     } catch (e) {
-      if (expectedError) assert.equal(e.message, expectedError)
+      if (expectedError) assert.strictEqual(e.message, expectedError)
       failed = true
     }
     assert(failed)
@@ -19,265 +19,226 @@ function testFail(text, expectedError, additionalOptions) {
 }
 function test(text, expectedResult, additionalOptions) {
   it(text, function () {
-    const result = Parser.parse(text, Object.assign({ ecmaVersion: 9, sourceType: "module", plugins: { importMeta: true } }, additionalOptions))
-
-    assert.deepEqual(result, expectedResult)
+    const result = Parser.parse(text, Object.assign({ ecmaVersion: 9, sourceType: "module" }, additionalOptions))
+    assert.deepStrictEqual(result, expectedResult)
   })
   testFail(text, null, { sourceType: "script" })
 }
 
+const newNode = (start, props) => Object.assign(new acorn.Node({options: {}}, start), props)
+
 describe("acorn-import-meta", function () {
-  test("const response = fetch(import.meta.url);", {
+  test("const response = fetch(import.meta.url);", newNode(0, {
     type: "Program",
-    start: 0,
     end: 40,
     body: [
-      {
+      newNode(0, {
         type: "VariableDeclaration",
-        start: 0,
         end: 40,
         declarations: [
-          {
+          newNode(6, {
             type: "VariableDeclarator",
-            start: 6,
             end: 39,
-            id: {
+            id: newNode(6, {
               type: "Identifier",
-              start: 6,
               end: 14,
               name: "response"
-            },
-            init: {
+            }),
+            init: newNode(17, {
               type: "CallExpression",
-              start: 17,
               end: 39,
-              callee: {
+              callee: newNode(17, {
                 type: "Identifier",
-                start: 17,
                 end: 22,
                 name: "fetch"
-              },
+              }),
               arguments: [
-                {
+                newNode(23, {
                   type: "MemberExpression",
-                  start: 23,
                   end: 38,
-                  object: {
+                  object: newNode(23, {
                     type: "MetaProperty",
-                    start: 23,
                     end: 34,
-                    meta: {
+                    meta: newNode(23, {
                       type: "Identifier",
-                      start: 23,
                       end: 29,
                       name: "import"
-                    },
-                    property: {
+                    }),
+                    property: newNode(30, {
                       type: "Identifier",
-                      start: 30,
                       end: 34,
                       name: "meta"
-                    }
-                  },
-                  property: {
+                    })
+                  }),
+                  property: newNode(35, {
                     type: "Identifier",
-                    start: 35,
                     end: 38,
                     name: "url"
-                  },
+                  }),
                   computed: false
-                }
+                })
               ]
-            }
-          }
+            })
+          })
         ],
         kind: "const"
-      }
+      })
     ],
     sourceType: "module"
-  })
-  test("const size = import.meta.scriptElement.dataset.size || 300;", {
+  }))
+  test("const size = import.meta.scriptElement.dataset.size || 300;", newNode(0, {
     type: "Program",
-    start: 0,
     end: 59,
     body: [
-      {
+      newNode(0, {
         type: "VariableDeclaration",
-        start: 0,
         end: 59,
         declarations: [
-          {
+          newNode(6, {
             type: "VariableDeclarator",
-            start: 6,
             end: 58,
-            id: {
+            id: newNode(6, {
               type: "Identifier",
-              start: 6,
               end: 10,
               name: "size"
-            },
-            init: {
+            }),
+            init: newNode(13, {
               type: "LogicalExpression",
-              start: 13,
               end: 58,
-              left: {
+              left: newNode(13, {
                 type: "MemberExpression",
-                start: 13,
                 end: 51,
-                object: {
+                object: newNode(13, {
                   type: "MemberExpression",
-                  start: 13,
                   end: 46,
-                  object: {
+                  object: newNode(13, {
                     type: "MemberExpression",
-                    start: 13,
                     end: 38,
-                    object: {
+                    object: newNode(13, {
                       type: "MetaProperty",
-                      start: 13,
                       end: 24,
-                      meta: {
+                      meta: newNode(13, {
                         type: "Identifier",
-                        start: 13,
                         end: 19,
                         name: "import"
-                      },
-                      property: {
+                      }),
+                      property: newNode(20, {
                         type: "Identifier",
-                        start: 20,
                         end: 24,
                         name: "meta"
-                      }
-                    },
-                    property: {
+                      })
+                    }),
+                    property: newNode(25, {
                       type: "Identifier",
-                      start: 25,
                       end: 38,
                       name: "scriptElement"
-                    },
+                    }),
                     computed: false
-                  },
-                  property: {
+                  }),
+                  property: newNode(39, {
                     type: "Identifier",
-                    start: 39,
                     end: 46,
                     name: "dataset"
-                  },
+                  }),
                   computed: false
-                },
-                property: {
+                }),
+                property: newNode(47, {
                   type: "Identifier",
-                  start: 47,
                   end: 51,
                   name: "size"
-                },
+                }),
                 computed: false
-              },
+              }),
               operator: "||",
-              right: {
+              right: newNode(55, {
                 type: "Literal",
-                start: 55,
                 end: 58,
                 value: 300,
                 raw: "300"
-              }
-            }
-          }
+              })
+            })
+          })
         ],
         kind: "const"
-      }
+      })
     ],
     sourceType: "module"
-  })
-  test("import.meta.resolve('something')", {
+  }))
+  test("import.meta.resolve('something')", newNode(0, {
     type: "Program",
-    start: 0,
     end: 32,
     body: [
-      {
+      newNode(0, {
         type: "ExpressionStatement",
-        start: 0,
         end: 32,
-        expression: {
+        expression: newNode(0, {
           type: "CallExpression",
-          start: 0,
           end: 32,
-          callee: {
+          callee: newNode(0, {
             type: "MemberExpression",
-            start: 0,
             end: 19,
-            object: {
+            object: newNode(0, {
               type: "MetaProperty",
-              start: 0,
               end: 11,
-              meta: {
+              meta: newNode(0, {
                 type: "Identifier",
-                start: 0,
                 end: 6,
                 name: "import"
-              },
-              property: {
+              }),
+              property: newNode(7, {
                 type: "Identifier",
-                start: 7,
                 end: 11,
                 name: "meta"
-              }
-            },
-            property: {
+              })
+            }),
+            property: newNode(12, {
               type: "Identifier",
-              start: 12,
               end: 19,
               name: "resolve"
-            },
+            }),
             computed: false
-          },
+          }),
           arguments: [
-            {
+            newNode(20, {
               type: "Literal",
-              start: 20,
               end: 31,
               value: "something",
               raw: "'something'"
-            }
+            })
           ]
-        }
-      }
+        })
+      })
     ],
     sourceType: "module"
-  })
+  }))
 
-  test("import x from 'y'", {
+  test("import x from 'y'", newNode(0, {
     type: "Program",
-    start: 0,
     end: 17,
     body: [
-      {
+      newNode(0, {
         type: "ImportDeclaration",
-        start: 0,
         end: 17,
         specifiers: [
-          {
+          newNode(7, {
             type: "ImportDefaultSpecifier",
-            start: 7,
             end: 8,
-            local: {
+            local: newNode(7, {
               type: "Identifier",
-              start: 7,
               end: 8,
               name: "x"
-            }
-          }
+            })
+          })
         ],
-        source: {
+        source: newNode(14, {
           type: "Literal",
-          start: 14,
           end: 17,
           value: "y",
           raw: "'y'"
-        }
-      }
+        })
+      })
     ],
     sourceType: "module"
-  })
+  }))
   testFail("let x = import.anotherMeta", "The only valid meta property for import is import.meta (1:15)")
 })
