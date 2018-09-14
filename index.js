@@ -1,6 +1,6 @@
 "use strict"
 
-const {tokTypes: tt} = require("acorn")
+const tt = require("acorn").tokTypes
 
 const skipWhiteSpace = /(?:\s|\/\/.*|\/\*[^]*?\*\/)*/g
 
@@ -31,8 +31,9 @@ module.exports = function(Parser) {
     }
 
     parseStatement(context, topLevel, exports) {
-      if (this.type !== tt._import || !nextTokenIsDot(this))
+      if (this.type !== tt._import || !nextTokenIsDot(this)) {
         return super.parseStatement(context, topLevel, exports)
+      }
 
       let node = this.startNode()
       let expr = this.parseExpression()
