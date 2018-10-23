@@ -241,4 +241,5 @@ describe("acorn-import-meta", function () {
     sourceType: "module"
   }))
   testFail("let x = import.anotherMeta", "The only valid meta property for import is import.meta (1:15)")
+  testFail("import.m\\u0065ta;", "\"meta\" in import.meta must not contain escape sequences (1:7)")
 })
