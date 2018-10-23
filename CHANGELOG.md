@@ -1,3 +1,7 @@
+## 1.0.0 (2018-10-23)
+
+* Don't accept escape sequences in "meta"
+
 ## 0.3.0 (2018-09-14)
 
 * Update to new acorn 6 interface
