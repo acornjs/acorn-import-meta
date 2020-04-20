@@ -4,7 +4,7 @@
 
 This is a plugin for [Acorn](http://marijnhaverbeke.nl/acorn/) - a tiny, fast JavaScript parser, written completely in JavaScript.
 
-It implements support for import.meta as defined in the [corresponding stage 3 proposal](https://github.com/tc39/proposal-import-meta). The emitted AST follows [ESTree](https://github.com/estree/estree/blob/master/es2015.md#metaproperty).
+It implements support for import.meta as defined in the [corresponding stage 4 proposal](https://github.com/tc39/proposal-import-meta). The emitted AST follows [ESTree](https://github.com/estree/estree/blob/master/es2020.md#metaproperty).
 
 ## Usage
 
