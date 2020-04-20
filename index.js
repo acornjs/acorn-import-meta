@@ -21,6 +21,7 @@ module.exports = function(Parser) {
       }
 
       let node = this.startNode()
+      if (this.containsEsc) this.raiseRecoverable(this.start, "Escape sequence in keyword import")
       node.meta = this.parseIdent(true)
       this.expect(tt.dot)
       node.property = this.parseIdent(true)
