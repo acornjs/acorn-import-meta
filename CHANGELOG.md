@@ -1,3 +1,8 @@
+## 1.1.0 (2020-04-20)
+
+* Don't accept escape sequences in "import"
+* Mark as compatible with acorn@7
+
 ## 1.0.0 (2018-10-23)
 
 * Don't accept escape sequences in "meta"
