@@ -19,11 +19,11 @@
     "lint": "eslint -c .eslintrc.json ."
   },
   "peerDependencies": {
-    "acorn": "^6.0.0"
+    "acorn": "^6.0.0 || ^7.0.0"
   },
   "version": "1.0.0",
   "devDependencies": {
-    "acorn": "^6.0.0",
+    "acorn": "^7.0.0",
     "eslint": "^5.5.0",
     "eslint-plugin-node": "^7.0.1",
     "mocha": "^5.2.0",
