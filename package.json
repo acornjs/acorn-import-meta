@@ -1,7 +1,7 @@
 {
   "name": "acorn-import-meta",
   "description": "Support for import.meta in acorn",
-  "homepage": "https://github.com/adrianheine/acorn-import-meta",
+  "homepage": "https://github.com/acornjs/acorn-import-meta",
   "contributors": [
     "Adrian Heine <mail@adrianheine.de>"
   ],
@@ -10,7 +10,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/adrianheine/acorn-import-meta"
+    "url": "https://github.com/acornjs/acorn-import-meta"
   },
   "license": "MIT",
   "scripts": {
