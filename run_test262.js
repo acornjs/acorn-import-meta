@@ -11,6 +11,7 @@ const unsupportedFeatures = [
   "class-fields",
   "class-fields-private",
   "class-fields-public",
+  "dynamic-import",
   "optional-catch-binding",
   "regexp-lookbehind",
   "regexp-named-groups",
